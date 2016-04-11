@@ -9,7 +9,7 @@ var mongoose = require('mongoose');
 
 var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var config = require('./config'); // get our config file
-var User = require('./app/models/user'); // get our mongoose model
+var User = require('./models/user'); // get our mongoose model
 
 // =======================
 // configuration =========
@@ -30,7 +30,7 @@ app.use(morgan('dev'));
 var apiRoutes = express.Router();
 
 //route to authenticate a user (POST http://localhost:8081/api/authenticate)
-var authenticate = require('./middlewares/auth');
+//var authenticate = require('./middlewares/auth');
 
 apiRoutes.post('/authenticate', function (req, res) {
 
@@ -52,8 +52,10 @@ apiRoutes.post('/authenticate', function (req, res) {
 
                 // if user is found and password is right
                 // create a token
-                var token = jwt.sign(user, app.get('superSecret'), {
-                    expiresInMinutes: 1440 // expires in 24 hours
+                console.log("Authenticating " + user);
+                var userTokenCredentials = {'_id': user._id, 'username' : user.name};
+                var token = jwt.sign(userTokenCredentials, app.get('superSecret'), {
+                    expiresIn: 86400 // expires in 24 hours
                 });
 
                 // return the information including token as JSON
