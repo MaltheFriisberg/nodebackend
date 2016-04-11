@@ -29,7 +29,9 @@ app.use(morgan('dev'));
 // get an instance of the router for api routes
 var apiRoutes = express.Router();
 
-//route to authenticate a user (POST http://localhost:8080/api/authenticate)
+//route to authenticate a user (POST http://localhost:8081/api/authenticate)
+var authenticate = require('./middlewares/auth');
+
 apiRoutes.post('/authenticate', function (req, res) {
 
     // find the user
@@ -68,6 +70,9 @@ apiRoutes.post('/authenticate', function (req, res) {
 });
 
 // route middleware to verify a token
+//var tokenverification = require('./middlewares/tokenverification.js');
+//app.use(tokenverification);
+//apiRoutes.use(tokenverification.tokenHandler);
 apiRoutes.use(function (req, res, next) {
 
     // check header or url parameters or post parameters for token
@@ -99,12 +104,12 @@ apiRoutes.use(function (req, res, next) {
     }
 });
 
-// route to show a random message (GET http://localhost:8080/api/)
+// route to show a random message (GET http://localhost:8081/api/)
 apiRoutes.get('/', function (req, res) {
     res.json({ message: 'Welcome to the coolest API on earth!' });
 });
 
-// route to return all users (GET http://localhost:8080/api/users)
+// route to return all users (GET http://localhost:8081/api/users)
 apiRoutes.get('/users', function (req, res) {
     User.find({}, function (err, users) {
         res.json(users);
@@ -113,6 +118,8 @@ apiRoutes.get('/users', function (req, res) {
 
 // apply the routes to our application with the prefix /api
 var testroute = require('./routes/testroute');
+//app.use('/api/authenticate', authenticate);
+//app.use(tokenverification);
 app.use('/test', testroute);
 app.use('/api', apiRoutes);
 

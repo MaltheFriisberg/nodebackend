@@ -2,10 +2,6 @@ var express = require('express');
 
 var apiRoutes = express.Router();
 
-apiRoutes.get('/test1', function (req, res) {
-    res.json({ message: 'welcome to the test1 endpoint' });
-});
-//simply add the code to authenticate BEFORE the auth protected endpoints
 apiRoutes.use(function (req, res, next) {
 
     // check header or url parameters or post parameters for token
@@ -35,10 +31,6 @@ apiRoutes.use(function (req, res, next) {
         });
 
     }
-});
-
-apiRoutes.get('/protected', function (req, res) {
-    res.json({ message: 'welcome to the protected endpoint' });
 });
 
 module.exports = apiRoutes;
