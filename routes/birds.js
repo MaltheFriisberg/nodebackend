@@ -13,6 +13,7 @@ var tokenVerifier = require('../middlewares/tokenVerification.js');
 birdRoutes.get('/', function (req, res) {
     res.json({ success: false, message: 'Hi from the birdRoute' });
 });
+//load the middleware to require a token
 birdRoutes.use(tokenVerifier.tokenHandler);
 // define the about route
 birdRoutes.get('/about', function (req, res) {
