@@ -6,7 +6,7 @@ app.set('superSecret', config.secret); // secret variable
 var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var authenticateRoutes = express.Router();
 
-authenticateRoutes.post('/authenticate', function (req, res) {
+authenticateRoutes.post('/', function (req, res) {
 
     // find the user
     User.findOne({
