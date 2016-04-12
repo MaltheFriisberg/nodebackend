@@ -75,7 +75,7 @@ apiRoutes.post('/authenticate', function (req, res) {
 //var tokenverification = require('./middlewares/tokenverification.js');
 //app.use(tokenverification);
 //apiRoutes.use(tokenverification.tokenHandler);
-apiRoutes.use(function (req, res, next) {
+/*apiRoutes.use(function (req, res, next) {
 
     // check header or url parameters or post parameters for token
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
@@ -104,7 +104,7 @@ apiRoutes.use(function (req, res, next) {
         });
 
     }
-});
+});*/
 
 // route to show a random message (GET http://localhost:8081/api/)
 apiRoutes.get('/', function (req, res) {
@@ -120,8 +120,11 @@ apiRoutes.get('/users', function (req, res) {
 
 // apply the routes to our application with the prefix /api
 var testroute = require('./routes/testroute');
+var birds = require('./routes/birds');
+
+app.use('/birds', birds);
 //app.use('/api/authenticate', authenticate);
-//app.use(tokenverification);
+//app.use(tokenverification);s
 app.use('/test', testroute);
 app.use('/api', apiRoutes);
 
