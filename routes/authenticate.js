@@ -1,18 +1,18 @@
 var express = require('express');
 var app = express();
-var User = require('../models/user.js'); // get our mongoose model
+var AppUser = require('../models/user.js'); // get our mongoose model
 var config = require('../config'); // get our config file
 app.set('superSecret', config.secret); // secret variable
 var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var authenticateRoutes = express.Router();
 
-authenticateRoutes.post('/', function (req, res) {
-
+authenticateRoutes.post('/authenticate', function (req, res) {
+    console.log('authenticating');
     // find the user
-    User.findOne({
+    AppUser.findOne({
         name: req.body.name
     }, function (err, user) {
-
+        //console.log(user.password);
         if (err) throw err;
 
         if (!user) {
