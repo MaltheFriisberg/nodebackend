@@ -31,12 +31,13 @@ app.use(morgan('dev'));
 var testroute = require('./routes/testroute');
 var birds = require('./routes/birds');
 var authentication = require('./routes/authenticate');
+var appUser = require('./routes/AppUser.js');
 
+app.use('/api/appuser', appUser);
 app.use('/api', authentication);
 app.use('/birds', birds);
 app.use('/test', testroute);
 
-console.log(mongoose.connection.readyState);
 // =======================
 // start the server ======
 // =======================
