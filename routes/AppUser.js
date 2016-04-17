@@ -13,7 +13,7 @@ appUserRoutes.post('/authenticate', function (req, res) { //get a token
     }, function (err, user) {
         //console.log(user.password);
         if (err) throw err;
-        console.log(user);
+        
         if (!user) {
             res.json({ success: false, message: 'Authentication failed. User not found.' });
         } else if (user) {
@@ -43,7 +43,20 @@ appUserRoutes.post('/authenticate', function (req, res) { //get a token
     });
 });
 appUserRoutes.post('/', function (req, res) { //register
-    console.log(req.body);
-    var appUser = req.body;
+    
+    var user = req.body;
+    //res.json({ username: req.body.username, password: req.body.password });
+    var newUser = AppUser();
+    newUser.username = req.body.username;
+    newUser.password = req.body.password;
+    newUser.email = req.body.email;
+    newUser.save(function (err, user) {
+        if (user) {
+            res.json({ username: req.body.username, password: req.body.password });
+        } else {
+            console.log(err);
+            res.json({ error: err });
+        }
+    });
 });
 module.exports = appUserRoutes;

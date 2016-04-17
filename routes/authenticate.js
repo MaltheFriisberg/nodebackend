@@ -13,7 +13,7 @@ authenticateRoutes.post('/authenticate', function (req, res) {
     AppUser.findOne({
         username: req.body.username
     }, function (err, user) {
-        console.log(user);
+        
         if (err) throw err;
 
         if (!user) {
