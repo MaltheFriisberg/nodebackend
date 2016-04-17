@@ -3,8 +3,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bcrypt = require('bcrypt');
 var SALT_WORK_FACTOR = 10;
-var config = require('../config');
-var SecretSalt = config.secretSalt;
+//var config = require('../config');
+//var SecretSalt = config.secretSalt;
 
 // set up a mongoose model and pass it using module.exports
 var UserSchema = new Schema({
@@ -38,9 +38,8 @@ UserSchema.pre('save', function (next) {
 
 
 });
-
 UserSchema.methods.comparePassword = function (candidatePassword, cb) {
-    bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
+    bcrypt.compare(candidatePassword, this.password, function (err, isMatch) { //returns true if the candidate password matches the bcrypt hashed one
         if (err) return cb(err);
         cb(null, isMatch);
     });
