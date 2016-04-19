@@ -6,6 +6,10 @@ app.set('superSecret', config.secret); // secret variable
 var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var authenticateRoutes = express.Router();
 
+/*authenticateRoutes.get('/', function (req, res) {
+    res.SendFile(path.join(__dirname + '/public', 'index.html'));
+});*/
+
 authenticateRoutes.post('/authenticate', function (req, res) {
     console.log('authenticating');
     //console.log(req.body.username);

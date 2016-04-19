@@ -3,6 +3,7 @@
 // =======================
 var express = require('express');
 var app = express();
+var path = require("path");
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var mongoose = require('mongoose');
@@ -32,7 +33,13 @@ var testroute = require('./routes/testroute');
 var birds = require('./routes/birds');
 var authentication = require('./routes/authenticate');
 var appUser = require('./routes/AppUser.js');
+//var apiDocPath = './apidoc/index.html';
+//app.use('/apidoc', express.static(apiDocPath));
 
+app.use(express.static(path.join(__dirname, 'doc')));
+app.get('/api', function (req, res) {
+    res.sendFile(path.join(__dirname + '/doc/index.html'));
+});
 app.use('/api/appuser', appUser);
 app.use('/api', authentication);
 app.use('/birds', birds);
