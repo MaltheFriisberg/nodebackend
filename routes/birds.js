@@ -10,7 +10,9 @@ birdRoutes.get('/', function (req, res) {
 birdRoutes.use(tokenVerifier.tokenHandler);
 // define the about route
 birdRoutes.get('/about', function (req, res) {
-    res.json({ success: false, message: '/About a birds, this endpoint requires a token' });
+    //req.decoded._id  has the users id!!! 
+    console.log(req.decoded);
+    res.json({ success: true, message: '/About a birds, this endpoint requires a token' });
 });
 
 module.exports = birdRoutes;

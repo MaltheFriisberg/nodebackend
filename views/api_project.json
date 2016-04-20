@@ -1,0 +1,15 @@
+{
+  "name": "AthleteUnbound REST API",
+  "version": "0.1.0",
+  "description": "Welcome to the AthleteUnbound API doc. The following endpoints are exposed",
+  "title": "AthleteUnbound API",
+  "url": "https://athleteunbound.azurewebsites.com/api",
+  "sampleUrl": false,
+  "apidoc": "0.2.0",
+  "generator": {
+    "name": "apidoc",
+    "time": "2016-04-19T09:13:18.568Z",
+    "url": "http://apidocjs.com",
+    "version": "0.15.1"
+  }
+}

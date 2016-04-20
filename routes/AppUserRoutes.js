@@ -1,11 +1,29 @@
 var express = require('express');
 var app = express();
-var AppUser = require('../models/user.js'); // get our mongoose model
+var AppUser = require('../models/appuser.js'); // get our mongoose model
 var config = require('../config'); // get our config file
 app.set('superSecret', config.secret); // secret variable
 var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var bcrypt = require('bcrypt');
 var appUserRoutes = express.Router();
+
+/**
+ * @api {post} /appuser/authenticate Request an access token
+ * @apiName Authenticate
+ * @apiGroup AppUser
+ *
+ * @apiHeader {string} username Username in plaintext
+ * @apiHeader {string} password Password in plaintext
+ *
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "success": "true",
+ *       "message": "enjoy your token",
+ *       "token": "/&/&87dsasdjdsa0!adsjkl"
+ *     }
+ */
 
 appUserRoutes.post('/authenticate', function (req, res) { //get a token
     // find the user
@@ -43,6 +61,24 @@ appUserRoutes.post('/authenticate', function (req, res) { //get a token
         }
     });
 });
+
+/**
+ * @api {post} /appuser Register a new user
+ * @apiName AppUser
+ * @apiGroup AppUser
+ *
+ * @apiParam {string} username Username in plaintext
+ * @apiParam {string} password Password in plaintext
+ *
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "success": "true",
+ *       "message": "enjoy your token",
+ *       "token": "/&/&87dsasdjdsa0!adsjkl"
+ *     }
+ */
 appUserRoutes.post('/', function (req, res) { //register
     
     var user = req.body;

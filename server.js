@@ -31,17 +31,15 @@ app.use(morgan('dev'));
 // apply the routes to our application with the prefix /api
 var testroute = require('./routes/testroute');
 var birds = require('./routes/birds');
-var authentication = require('./routes/authenticate');
-var appUser = require('./routes/AppUser.js');
+var appUser = require('./routes/AppUserRoutes.js');
 //var apiDocPath = './apidoc/index.html';
 //app.use('/apidoc', express.static(apiDocPath));
 
-app.use(express.static(path.join(__dirname, 'doc')));
+app.use(express.static(path.join(__dirname, 'views')));
 app.get('/api', function (req, res) {
-    res.sendFile(path.join(__dirname + '/doc/index.html'));
+    res.sendFile(path.join(__dirname + '/views/index.html'));
 });
 app.use('/api/appuser', appUser);
-app.use('/api', authentication);
 app.use('/birds', birds);
 app.use('/test', testroute);
 
