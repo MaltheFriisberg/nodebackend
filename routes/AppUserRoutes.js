@@ -8,7 +8,7 @@ var bcrypt = require('bcrypt');
 var appUserRoutes = express.Router();
 
 /**
- * @api {post} /appuser/authenticate Request an access token
+ * @api {GET} /appuser/authenticate Request an access token
  * @apiName Authenticate
  * @apiGroup AppUser
  *
@@ -25,10 +25,13 @@ var appUserRoutes = express.Router();
  *     }
  */
 
-appUserRoutes.post('/authenticate', function (req, res) { //get a token
+appUserRoutes.get('/authenticate', function (req, res) { //get a token
+    console.log(req.get("username"));
+    console.log(req.get("password"));
+    
     // find the user
     AppUser.findOne({
-        username: req.body.username
+        username: req.get("username")
     }, function (err, user) {
         if (err) throw err;
         
@@ -36,9 +39,9 @@ appUserRoutes.post('/authenticate', function (req, res) { //get a token
             res.json({ success: false, message: 'Authentication failed. User not found.' });
         } else if (user) {
             // check if password matches
-            user.comparePassword(req.body.password, function (err, isMatch) {
+            user.comparePassword(req.get("password"), function (err, isMatch) {
                 if (err) throw err;
-                console.log(req.body.password, isMatch);
+                console.log(req.get("password"), isMatch);
                 if (!isMatch) {
                     res.json({ success: false, message: 'Authentication failed. Wrong password.' });
                 } else {
