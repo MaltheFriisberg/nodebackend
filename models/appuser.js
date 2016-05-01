@@ -8,9 +8,12 @@ var SALT_WORK_FACTOR = 10;
 
 // set up a mongoose model and pass it using module.exports
 var UserSchema = new Schema({
+    facebookId: {type: String},
     username: { type: String, required: true, index: { unique: true } },
-    password: { type: String, required: true },
-    email: { type: String, required: true }
+    password: { type: String },
+    email: { type: String, required: true },
+    facebookToken: {type: String},
+    gender: {type : String}
     //role: String
     //admin: Boolean
 }, { collection: 'AppUser' }); //by deafault mongoose will pluralize collection names (flertal)..
