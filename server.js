@@ -32,7 +32,8 @@ app.use(morgan('dev'));
 var testroute = require('./routes/testroute');
 var birds = require('./routes/birds');
 var appUser = require('./routes/AppUserRoutes.js');
-var athleteRoutes = require('./routes/AthleteRoutes.js')
+var athleteRoutes = require('./routes/AthleteRoutes.js');
+var sportRoutes = require('./routes/SportRoutes.js');
 //var apiDocPath = './apidoc/index.html';
 //app.use('/apidoc', express.static(apiDocPath));
 
@@ -44,6 +45,7 @@ app.use('/api/athlete', athleteRoutes);
 app.use('/api/appuser', appUser);
 app.use('/birds', birds);
 app.use('/test', testroute);
+app.use('/api/sport', sportRoutes);
 
 // =======================
 // start the server ======
