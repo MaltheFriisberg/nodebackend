@@ -29,11 +29,11 @@ app.use(bodyParser.json());
 app.use(morgan('dev'));
 
 // apply the routes to our application with the prefix /api
-var testroute = require('./routes/testroute');
-var birds = require('./routes/birds');
+
 var appUser = require('./routes/AppUserRoutes.js');
 var athleteRoutes = require('./routes/AthleteRoutes.js');
 var sportRoutes = require('./routes/SportRoutes.js');
+var competencyRatingRoutes = require('./routes/competencyRatingRoutes');
 //var apiDocPath = './apidoc/index.html';
 //app.use('/apidoc', express.static(apiDocPath));
 
@@ -41,10 +41,9 @@ app.use(express.static(path.join(__dirname, 'views')));
 app.get('/api', function (req, res) {
     res.sendFile(path.join(__dirname + '/views/index.html'));
 });
+app.use('/api/competencyRating', competencyRatingRoutes);
 app.use('/api/athlete', athleteRoutes);
 app.use('/api/appuser', appUser);
-app.use('/birds', birds);
-app.use('/test', testroute);
 app.use('/api/sport', sportRoutes);
 
 // =======================

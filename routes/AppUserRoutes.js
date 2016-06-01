@@ -4,6 +4,7 @@ var AppUser = require('../models/appuser.js'); // get our mongoose model
 var config = require('../config'); // get our config file
 app.set('superSecret', config.secret); // secret variable
 var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
+var tokenVerifier = require('../middlewares/tokenVerification.js');
 var bcrypt = require('bcrypt');
 var appUserRoutes = express.Router();
 /**
@@ -31,15 +32,16 @@ appUserRoutes.get('/authenticate/facebook', function (req, res) {
         //username: req.get("username"),
         facebookId: req.get("FacebookId"),
     }, function (err, user) {
-        console.log(user);
+        //console.log(user);
         if (err) throw err;
         if (!user) {
             res.json({success: false, message:"User not found"});
         } else {
             var userTokenCredentials = { '_id': user._id, 'username': user.username };
             var token = jwt.sign(userTokenCredentials, app.get('superSecret'), {
-                expiresIn: 86400 // expires in 24 hours
+                //expiresIn: 86400 // expires in 24 hours
             });
+            console.log("returning token "+token +" for userId "+ user._id+ " username "+user.username);
             res.json({ success: true, token: token });
         }
     });
@@ -89,7 +91,7 @@ appUserRoutes.get('/authenticate', function (req, res) { //get a token
                     // create a token
                     var userTokenCredentials = { '_id': user._id, 'username': user.username };
                     var token = jwt.sign(userTokenCredentials, app.get('superSecret'), {
-                        expiresIn: 86400 // expires in 24 hours
+                        //expiresIn: 86400 // expires in 24 hours
                     });
 
                     // return the information including token as JSON
@@ -102,6 +104,13 @@ appUserRoutes.get('/authenticate', function (req, res) { //get a token
             });
         }
     });
+});
+/*
+ * 
+ * Validate a token
+ */
+appUserRoutes.get('/token/validate', function (req, res) {
+    //tokenVerifier.tokenHandler
 });
 
 /**
@@ -144,9 +153,10 @@ appUserRoutes.post('/', function (req, res) { //register
     });
 });
 appUserRoutes.post('/facebook', function (req, res) { //register
-
+    console.log('api/appuser/facebook POST');
     var user1 = req.body;
     console.log(user1);
+    console.log(req.body.username);
     //res.json({ username: req.body.username, password: req.body.password });
     var newUser = AppUser();
     newUser.facebookId = req.body.FacebookId;
@@ -161,14 +171,15 @@ appUserRoutes.post('/facebook', function (req, res) { //register
         if (user) {
             var userTokenCredentials = { '_id': user._id, 'username': user.username };
             var token = jwt.sign(userTokenCredentials, app.get('superSecret'), {
-                expiresIn: 86400 // expires in 24 hours
+                //expiresIn: 86400 // expires in 24 hours
             });
-            
-            res.json({ username: req.body.username, token });
+            //console.log("token "+token + " created for user._id ");
+            res.json({ _id: user._id, username: user.username, email : user.email, gender : user.gender});
         } else {
             console.log(err);
             res.json({ error: err });
         }
     });
 });
+
 module.exports = appUserRoutes;

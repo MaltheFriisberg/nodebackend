@@ -10,7 +10,7 @@ module.exports = {
         // check header or url parameters or post parameters for token
         var token = req.body.token || req.query.token || req.headers['x-access-token'] || req.headers['fb-access-token'];
         //console.log(token._id);
-
+		console.log(req.headers['x-access-token']);
         // decode token
         if (token) {
 

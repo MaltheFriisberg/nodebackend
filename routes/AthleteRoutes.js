@@ -14,24 +14,27 @@ athleteRoutes.get('/', function (req, res) {
     }, function (err, athlete) {
         if (err) throw err;
         if (!athlete) {
-            res.json({message : "Could not get the athlete. Are you sure there is an athlete for the appUserId? "+appUserId1});
+            res.json({success:false, message : "Could not get the athlete. Are you sure there is an athlete for the appUserId? "+appUserId1+ " username "+ req.decoded.username});
         } else if (athlete) {
-            res.json(athlete);
+            res.json({ success: true, athlete:athlete });
         }
     });
     
 });
 
 athleteRoutes.post('/', function (req, res) {
+	console.log(req.decoded._id);
+    //console.log(req.body.appUserId);
     var newAthlete = new AthleteModel( {
         appUserId: req.decoded._id,
         competencies: req.body.competencies,
         sport : req.body.sport,
-        competencyRatings : req.body.competencyRatings,
+        //competencyRatings : req.body.competencyRatings,
         goal : req.body.goal
     });
     newAthlete.save(function (err, athlete) {
         if (athlete) {
+			console.log(athlete);
             res.json( athlete );
         } else {
             console.log(err);

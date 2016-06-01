@@ -3,7 +3,7 @@ var _ = require('underscore');
 
 exports.updateDocument = function (doc, SchemaTarget, data) {
     for (var field in SchemaTarget.schema.paths) {
-        if ((field !== '_id') && (field !== '__v')) {
+        if ((field !== '_id') && (field !== 'goal')) {
             var newValue = getObjValue(field, data);
             console.log('data[' + field + '] = ' + newValue);
             if (newValue !== undefined) {

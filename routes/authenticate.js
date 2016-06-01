@@ -34,7 +34,7 @@ authenticateRoutes.post('/authenticate', function (req, res) {
                 //console.log("Authenticating " + user);
                 var userTokenCredentials = { '_id': user._id, 'username': user.username };
                 var token = jwt.sign(userTokenCredentials, app.get('superSecret'), {
-                    expiresIn: 86400 // expires in 24 hours
+                    //expiresIn: 86400 // expires in 24 hours
                 });
 
                 // return the information including token as JSON

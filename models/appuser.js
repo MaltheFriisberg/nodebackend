@@ -9,9 +9,9 @@ var SALT_WORK_FACTOR = 10;
 // set up a mongoose model and pass it using module.exports
 var UserSchema = new Schema({
     facebookId: {type: String},
-    username: { type: String, required: true, index: { unique: true } },
-    password: { type: String },
-    email: { type: String, required: true },
+    username: { type: String, required: true, index: { unique: true }  }, //, required: true, index: { unique: true } 
+    password: { type: String, required: true },
+    email: { type: String},
     facebookToken: {type: String},
     gender: {type : String}
     //role: String
